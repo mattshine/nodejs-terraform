@@ -113,7 +113,7 @@ We will have to define a `var.key_name` in our `variables.tf` to pass the key_na
 ## Throttling
 The API key example above has additional options for rate limiting, defined by this block:
 ```terraform
-quota_settings { # maximum number of requests with this API key over specifid time interval
+quota_settings { # maximum number of requests with this API key over specified time interval
     limit = # max requests, such as 20
     period = # time period limit applies. Values are DAY, WEEK, or MONTH
   }
