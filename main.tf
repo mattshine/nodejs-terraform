@@ -23,7 +23,7 @@ resource "aws_iam_role" "lambda_role" {
 EOF
 }
 
-# Runs the hello_lambda
+# Runs the hello-world
 module "lambda" {
   source  = "./lambda"
   name    = "hello-world"
