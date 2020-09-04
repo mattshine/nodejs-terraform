@@ -122,8 +122,8 @@ resource "aws_db_instance" "LambdaMySQL" {
   instance_class = "db.t2.micro"
   name = "ExambleLambdaMySQL"
   identifier = "mysql"
-  username = var.dbusername
-  password = var.dbpassword
+  username = var.dbusername # defined in our terraform.tfvars
+  password = var.dbpassword # defined in our terraform.tfvars
   db_subnet_group_name = aws_db_subnet_group.demo_db_subnet.id
   vpc_security_group_ids = list(aws_security_group.demo_security_group.id)
   final_snapshot_identifier = "final-id-${random_id.final_snapshot.hex}"
