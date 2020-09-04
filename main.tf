@@ -101,7 +101,7 @@ resource "aws_subnet" "demo_subnet2" {
   availability_zone = "${var.aws_region}b"
 }
 
-# Creates our 3rd subnet in availability one ${aws_region}b
+# Creates our 3rd subnet in availability one ${aws_region}c
 resource "aws_subnet" "demo_subnet3" {
   vpc_id = aws_vpc.demo_vpc.id
   cidr_block = "10.0.3.0/24"
