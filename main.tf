@@ -44,7 +44,7 @@ resource "aws_api_gateway_resource" "hello_api_res_hello" {
 }
 
 # Sets up the /GET HTTP method
-module "hello_get" {
+module "api_method" {
   source      = "./api_method"
   rest_api_id = aws_api_gateway_rest_api.hello_api.id
   resource_id = aws_api_gateway_resource.hello_api_res_hello.id
@@ -59,7 +59,7 @@ module "hello_get" {
 resource "aws_api_gateway_deployment" "hello_api_deployment" {
   rest_api_id = aws_api_gateway_rest_api.hello_api.id
   stage_name  = var.environment
-  description = "Deploy methods: ${module.hello_get.http_method}"
+  description = "Deploy methods: ${module.api_method.http_method}"
 }
 
 resource "aws_vpc" "demo_vpc" {
@@ -114,14 +114,19 @@ resource "aws_db_instance" "LambdaMySQL" {
   engine = "mysql"
   instance_class = "db.t2.micro"
   name = "ExambleLambdaMySQL"
+  identifier = "mysql"
   username = var.dbusername
   password = var.dbpassword
   db_subnet_group_name = aws_db_subnet_group.demo_db_subnet.id
   vpc_security_group_ids = list(aws_security_group.demo_security_group.id)
-  final_snapshot_identifier = "final-id"
+  final_snapshot_identifier = "final-id-${random_id.final_snapshot.hex}"
 }
 
 resource "aws_iam_role_policy_attachment" "test-attach" {
   role = aws_iam_role.lambda_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+}
+
+resource "random_id" "final_snapshot" {
+  byte_length = 8
 }
