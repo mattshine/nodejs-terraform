@@ -4,7 +4,7 @@ This is an example project of an AWS Lambda, API Gateway, and RDS all configured
 
 ## Lambda
 
-The API Gateway creates a `/hello` endpoint with a GET method. We have a single handler for thsi method, defined by the function below:
+The API Gateway creates a `/hello` endpoint with a GET method. We have a single handler for this method, defined by the function below:
 ```js
 exports.handler = function (event, context, callback) {
     var response = {
@@ -48,8 +48,14 @@ When Terraform runs, our `output.tf` will output the API endpoint to the console
 
 ## Example
 
-**Command**: `curl https://sgrn757d2d.execute-api.us-east-1.amazonaws.com/demo/hello`
+**Command**: 
+```
+curl https://sgrn757d2d.execute-api.us-east-1.amazonaws.com/demo/hello
+```
 
-**Output**: `{"statusCode":200,"headers":{"Content-Type":"text/html; charset=utf-8"},"body":"Hello world!"}`
+**Output**: 
+```
+{"statusCode":200,"headers":{"Content-Type":"text/html; charset=utf-8"},"body":"Hello world!"}
+```
 
-
+The main body of our response contains the `"Hello World"` we defined in our `hello-world.js` file.
