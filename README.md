@@ -61,3 +61,70 @@ curl https://sgrn757d2d.execute-api.us-east-1.amazonaws.com/demo/hello
 ```
 
 The main body of our response contains the `"Hello World"` we defined in our `hello-world.js` file.
+
+## Optional Configuration
+While this is just a demo project, we could easily add API Keys to our REST API resource to further increase security.
+
+
+Our REST API resource:
+```json
+resource "aws_api_gateway_rest_api" "hello_api" {
+  name = "Hello API"
+}
+```
+
+To add an API key to this resource, we can specify API Key resources in our root `main.tf`, such as the following:
+
+```json
+resource "aws_api_gateway_api_key" "api_key" {
+  name = var.key_name
+  description = "Our API Key"
+  enabled = true
+}
+
+resource "aws_api_gateway_usage_plan" "usage_plan" {
+  name = var.key_name
+  description = "Usage plan for our API key"
+  quota_settings { 
+    limit = 
+    period = 
+  }
+  throttle_settings {
+    burst_limit = 
+    rate_limit = 
+  }
+  api_stages {
+    api_id = aws_api_gateway_rest_api.hello_api.id
+    stage = aws_api_gateway_deployment.hello_api_deployment.stage_name
+  }
+}
+
+resource "aws_api_gateway_usage_plan_key" "mykey" {
+  key_id = aws_api_gateway_api_key.api_key.id
+  key_type = "API_KEY"
+  usage_plan_id = aws_api_gateway_usage_plan.usage_plan.id
+}
+```
+
+This will create an `aws_api_gateway_api_key` resource, a usage_plan defined by the resource `aws_api_gateway_usage_plan`, and finally attach those two items together for the API key using the resource `aws_api_gateway_usage_plan_key`.
+
+We will have to define a `var.key_name` in our `variables.tf` to pass the key_name in properly to the resources.
+
+## Throttling
+The API key example above has additional options for rate limiting, defined by this block:
+```json
+quota_settings { # maximum number of requests with this API key over specifid time interval
+    limit = # max requests, such as 20
+    period = # time period limit applies. Values are DAY, WEEK, or MONTH
+  }
+  throttle_settings { # request rate limit applied to this key
+    burst_limit = # max rate limit time over seconds, such as 5
+    rate_limit = # the steady state rate limit, such as 10
+  }
+```
+
+Adding all of these resources will ensure an API key attached to your API Gateway, with the appropriate rate limiting in place so it doesn't get overwhelmed should that be an issue in the future.
+
+## Final Thoughts
+This project can be improved in more ways than I'm aware of at this moment. Please feel free to submit a PR to this repository if you see things that could be improved.
+
