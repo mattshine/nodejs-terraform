@@ -32,8 +32,6 @@ This Terraform run will create subnets in the `a`, `b`, and `c` availability zon
 ## RDS
 We have a small private MySQL RDS (Relational Database Service) configured in the same VPC as our lambda function, called `ExampleLambdaMySQL`. We have a security group assigned to this VPC that allows our MySQL database to connect across these subnets to our lambda function.
 
-**Note**: We are allowing a final snapshot of our RDS database. To avoid final snapshot naming conflicts, we're passing a `random_id` resource of `byte_length = 8` to the final_snapshot identifier, to keep them unique.
-
 The username and password of our RDS database are declared in our `variables.tf` file, but are actually passed in a `terraform.tfvars` file. You will need to create this file and enter a username and password as desired in the following format:
 
 ```
@@ -41,6 +39,17 @@ dbusername = "username"
 dbpassword = "randompassword1234"
 ```
 
+**_Note_**: We are allowing a final snapshot of our RDS database. To avoid final snapshot naming conflicts, we're passing a `random_id` resource of `byte_length = 8` to the final_snapshot identifier, to keep them unique.
+
+We are currently not utilizing the RDS, but it's available should you need it in the future.
+
 ## Accessing the API
-When Terraform runs, 
+When Terraform runs, our `output.tf` will output the API endpoint to the console from our `value = aws_api_gateway_deployment.hello_api_deployment.invoke_url` stated in there. You can hit this by running a `curl ${invoke_url}`, with an example below:
+
+## Example
+
+**Command**: `curl https://sgrn757d2d.execute-api.us-east-1.amazonaws.com/demo/hello`
+
+**Output**: `{"statusCode":200,"headers":{"Content-Type":"text/html; charset=utf-8"},"body":"Hello world!"}`
+
 
