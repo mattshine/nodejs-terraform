@@ -1,6 +1,6 @@
 # Lambda + API Gateway + RDS
 
-This is an example project of an AWS Lambda, API Gateway, and RDS all configured with Terraform. We utilize an API endpoint to trigger our lambda function on a GET HTTP request, with the proper VPCs configured for the RDS should it be needed in the future.
+This is an example project of an AWS Lambda, API Gateway, and RDS all configured with Terraform. We utilize an API endpoint to trigger our lambda function on a GET HTTP request, with the proper VPC and security group configured for the RDS should it be needed in the future.
 
 ## Lambda
 
