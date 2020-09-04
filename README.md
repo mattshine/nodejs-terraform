@@ -24,6 +24,8 @@ Our Terraform configuration utilizes two modules, a `lambda` module and an `api_
 ## Using Terraform
 To utilize this repository to create your environment, you'll need to have terraform installed already. Instructions can be found [here](https://learn.hashicorp.com/tutorials/terraform/install-cli).
 
+Initialize the module plugins and our cloud provider by running `terraform init` from the root level.
+
 We can check the expected configuration of the terraform run by invoking `terraform plan`, and if we are satisfied with the result, by running `terraform apply`. You will be prompted for confirmation.
 
 ## Networking
