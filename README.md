@@ -18,7 +18,7 @@ exports.handler = function (event, context, callback) {
 };
 ```
 
-_**Note**_: The official Javascript style guide [here](https://github.com/airbnb/javascript#references) suggests using `const` instead of `var` for all references. I've left it as `var` here in this example source code.
+_**Note**_: The AirBNB official Javascript style guide [here](https://github.com/airbnb/javascript#references) suggests using `const` instead of `var` for all references. I've left it as `var` here in this example source code.
 
 ## Terraform
 Our Terraform configuration utilizes two modules, a `lambda` module and an `api_method` module. Our terraform run will create the lambda function, a REST API with a single endpoint, a GET HTTP method on the API Gateway for accessibility, as well as a small RDS database.
