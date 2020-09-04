@@ -51,7 +51,7 @@ When Terraform runs, our `output.tf` will output the API endpoint to the console
 value = aws_api_gateway_deployment.hello_api_deployment.invoke_url
 ```
 
-stated in the file. You can hit this by running a `curl ${invoke_url}`, with an example below:
+stated in the file. You can hit this by running a `curl ${invoke_url}/hello`, with an example below:
 
 ## Example
 
