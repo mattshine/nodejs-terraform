@@ -67,7 +67,7 @@ While this is just a demo project, we could easily add API Keys to our REST API 
 
 
 Our REST API resource:
-```json
+```terraform
 resource "aws_api_gateway_rest_api" "hello_api" {
   name = "Hello API"
 }
@@ -75,7 +75,7 @@ resource "aws_api_gateway_rest_api" "hello_api" {
 
 To add an API key to this resource, we can specify API Key resources in our root `main.tf`, such as the following:
 
-```json
+```
 resource "aws_api_gateway_api_key" "api_key" {
   name = var.key_name
   description = "Our API Key"
